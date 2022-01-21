@@ -22,8 +22,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       -
-        name: Build prod image and push
+        name: Build  with cache and push
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_TAG }}-prod
+          file: Dockerfile.dev
+          tags: ${{ secrets.DOCKERHUB_TAG }}-dev-cache
+          cache-from: type=gha
+          cache-to: type=gha, mode=max
