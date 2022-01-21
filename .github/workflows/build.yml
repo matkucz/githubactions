@@ -25,9 +25,23 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       -
-        name: Build and push
-        id: docker_build
+        name: Build AMD64 arch and push
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_TAG }}
+          platforms: linux/amd64
+          tags: ${{ secrets.DOCKERHUB_TAG }}:amd64
+      -
+        name: Build Arm64 arch and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          platforms: linux/arm64
+          tags: ${{ secrets.DOCKERHUB_TAG }}:arm64
+      -
+        name: Build ARM/v7 arch and push 
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          platforms: linux/arm/v7
+          tags: ${{ secrets.DOCKERHUB_TAG }}:arm/v7
