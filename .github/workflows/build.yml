@@ -13,9 +13,6 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       -
@@ -29,19 +26,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_TAG }}-amd64
-      -
-        name: Build Arm64 arch and push
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          platforms: linux/arm64
-          tags: ${{ secrets.DOCKERHUB_TAG }}-arm64
-      -
-        name: Build ARM/v7 arch and push 
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          platforms: linux/arm/v7
-          tags: ${{ secrets.DOCKERHUB_TAG }}-arm-v7
+          file: {context}/Dockerfile.dev
+          tags: ${{ secrets.DOCKERHUB_TAG }}-dev
